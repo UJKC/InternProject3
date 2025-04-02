@@ -15,7 +15,7 @@ const SelectorComponent = ({ options, utility }) => {
   useEffect(() => setDisableSecond(true), [])
 
   useEffect(() => {
-    if (input1OptionObject) {
+    if (input1OptionObject && Object.keys(input1OptionObject).length > 0) {
       setDisableSecond(false); // Enable second App if input1OptionObject is defined
 
       // Case 1: 'host' (Second Input is Required)
@@ -58,8 +58,8 @@ const SelectorComponent = ({ options, utility }) => {
 
   return (
     <>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <App data={options} setterInput={setInput1OptionObject} disableSecond={false} letItReset={input1OptionObject} secondRequired={true} utility={utility} utilityFunction={setInput1UtilityOptionObject} />
+      <div style={{ display: 'flex', flexDirection: 'row', zIndex: '0'}}>
+        <App data={options} setterInput={setInput1OptionObject} disableSecond={false} letItReset={input1OptionObject} secondRequired={true} utility={utility} utilityFunction={setInput1UtilityOptionObject}/>
         <App
           data={dataToSend}
           setterInput={setInput2OptionObject}

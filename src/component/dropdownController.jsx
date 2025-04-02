@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Appdrop from './dropdown';
 import { filterData } from '../utlity/dropDownUtility';
 
-const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, utility, utilityFunction }) => {
+const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, utility, utilityFunction}) => {
     console.log("Here from dropdownController by SelectorComponent. Adding input field for controlling");
 
     const [input, setInput] = useState('');
@@ -23,7 +23,7 @@ const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, uti
 
             // Set the input state to the full value (first part + colon + second part)
             setInput(newInput);
-            setterInput({id: firstPart, category: 'host', Option: firstPart})
+            setterInput({ id: firstPart, category: 'host', Option: firstPart })
 
             // Call the filterData function with the second part (after the colon)
             const { filteredData, showAppDrop } = filterData(utility, secondPart, false); // set addHostRequired to false
@@ -97,12 +97,33 @@ const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, uti
         };
     }, []);
 
+    const handleDisable = (disableSecond, disableChildInput) => {
+        if (disableSecond) {
+            return true
+        }
+        else {
+            if (disableChildInput) {
+                return true
+            }
+            else {
+                return false
+            }
+        }
+    }
+
     return (
         <div style={{ display: 'flex', flexDirection: 'column' }} ref={divRef}>
-            <input type="text" onChange={handleInputTypeChange} value={input || ''} placeholder="Search..." disabled={disableSecond || disableChildInput} style={{
-                border: error ? '2px solid red' : '1px solid #ccc',
-                outline: error ? 'red' : 'none'
-            }} onFocus={() => setDisableChildInput(false)} />
+            <input
+                type="text"
+                onChange={handleInputTypeChange}
+                value={input || ''}
+                placeholder="Search..."
+                disabled={handleDisable(disableSecond, disableChildInput)}  // Using handleDisable function here
+                style={{
+                    border: error ? '2px solid red' : '1px solid #ccc',
+                    outline: error ? 'red' : 'none'
+                }}
+            />
             {error && <span style={{ color: 'red', fontSize: '12px' }}>This field is required.</span>}
             {showAppdrop && <Appdrop data={filteredData} setinputfunction={handleSelectFromDropDown} />}
 
