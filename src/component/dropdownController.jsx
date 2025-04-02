@@ -7,13 +7,14 @@ const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, uti
 
     const [input, setInput] = useState('');
     const [filteredData, setFilteredData] = useState({});
-    const [showAppdrop, setShowAppDrop] = useState(true);
+    const [showAppdrop, setShowAppDrop] = useState(false);
     const [error, setError] = useState(false); // Error state
     const divRef = useRef(null);
     const [disableChildInput, setDisableChildInput] = useState()
     const [utilityAdded, setUtilityAdded] = useState()
 
     const handleInputTypeChange = (e) => {
+        setShowAppDrop(true)
         const newInput = e.target.value.trim(); // Trim the input
 
         // Check if there's a colon in the input
