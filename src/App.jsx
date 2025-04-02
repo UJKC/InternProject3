@@ -14,6 +14,7 @@ const App = () => {
     else {
       console.log("Fetching from net")
       fetchCacheData()
+      window.location.reload()
     }
     
   }, []); // Empty dependency array to run this only once when the component mounts
