@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Appdrop from './dropdown';
 import { filterData } from '../utlity/dropDownUtility';
 
-const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, utility, utilityFunction}) => {
+const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, utility, utilityFunction, name}) => {
     console.log("Here from dropdownController by SelectorComponent. Adding input field for controlling");
 
     const [input, setInput] = useState('');
@@ -115,7 +115,7 @@ const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, uti
     return (
         <div style={{ display: 'flex', flexDirection: 'column' }} ref={divRef}>
             <input
-                type="text"
+                type="search"
                 onChange={handleInputTypeChange}
                 value={input || ''}
                 placeholder="Search..."
@@ -126,7 +126,7 @@ const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, uti
                 }}
             />
             {error && <span style={{ color: 'red', fontSize: '12px' }}>This field is required.</span>}
-            {showAppdrop && <Appdrop data={filteredData} setinputfunction={handleSelectFromDropDown} />}
+            {showAppdrop && <Appdrop data={filteredData} setinputfunction={handleSelectFromDropDown} name={name} letItRest={letItReset}/>}
 
         </div>
     );

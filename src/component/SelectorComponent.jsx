@@ -59,7 +59,7 @@ const SelectorComponent = ({ options, utility }) => {
   return (
     <>
       <div style={{ display: 'flex', flexDirection: 'row', zIndex: '0'}}>
-        <App data={options} setterInput={setInput1OptionObject} disableSecond={false} letItReset={input1OptionObject} secondRequired={true} utility={utility} utilityFunction={setInput1UtilityOptionObject}/>
+        <App data={options} setterInput={setInput1OptionObject} disableSecond={false} letItReset={input1OptionObject} secondRequired={true} utility={utility} utilityFunction={setInput1UtilityOptionObject} name={'first'}/>
         <App
           data={dataToSend}
           setterInput={setInput2OptionObject}
@@ -68,6 +68,7 @@ const SelectorComponent = ({ options, utility }) => {
           secondRequired={secondRequired}
           utility={utility}
           utilityFunction={setInput2UtilityOptionObject}
+          name={'second'}
         />
       </div>
       <hr />
@@ -82,7 +83,7 @@ const SelectorComponent = ({ options, utility }) => {
         <>
           {input2OptionObject.Option && <div>Option2: {input2OptionObject.Option}</div>}
           {input2OptionObject.category && <div>Category2: {input2OptionObject.category}</div>}
-          {input2OptionObject.category && <div>Category2: {input2OptionObject.id}</div>}
+          {input2OptionObject.category && <div>id2: {input2OptionObject.id}</div>}
         </>
       )}
       {input1UtilityOptionObject && (
