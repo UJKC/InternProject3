@@ -28,10 +28,25 @@ export function includeMatch (inputLower, data)  {
     return matchedItems;
 };
 
-export function filterData (data, input, addHost = false) {
+export function filterData (data, input, addHost = false, name, letItReset) {
     let inputClone = input.toLowerCase(); // Create inputClone before the loop
     let found = false; // Flag to track if data is found
     let filteredData = {}; // Variable to store the filtered data
+
+    if (name === 'second' && letItReset && Object.keys(letItReset).length !== 0) {
+        const { Option, category } = letItReset;
+
+        // Check if letItReset.Option exists in letItReset.category within data[letItReset.category]
+        if (category && data[category]) {
+            const categoryData = data[category];
+            const index = categoryData.findIndex(item => item.Option === Option);
+
+            // If the item exists, remove it
+            if (index !== -1) {
+                categoryData.splice(index, 1);
+            }
+        }
+    }
 
     while (!found && inputClone.length > 0) {
         // Check for Exact Match

@@ -42,6 +42,9 @@ const SelectorComponent = ({ options, utility }) => {
       setDisableSecond(true); // Disable second App if input1OptionObject is undefined
       setSecondCategory([]);
       setSecondRequired(false);
+      setInput1UtilityOptionObject(undefined)
+      setInput2OptionObject(undefined)
+      setInput2UtilityOptionObject(undefined)
     }
   }, [input1OptionObject]);
 
@@ -100,15 +103,6 @@ const SelectorComponent = ({ options, utility }) => {
           {input2UtilityOptionObject.category && <div>Utility Category2: {input2UtilityOptionObject.id}</div>}
         </>
       )}
-      <hr />
-      <button onClick={() => {
-        setInput1OptionObject(undefined);
-        setInput2OptionObject(undefined);
-        setInput1UtilityOptionObject(undefined);
-        setInput2UtilityOptionObject(undefined);
-        setSecondRequired(false);
-        setSecondCategory([]);
-      }}>reset</button>
     </>
   );
 };
