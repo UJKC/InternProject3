@@ -10,44 +10,53 @@ const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, uti
     const [showAppdrop, setShowAppDrop] = useState(false);
     const [error, setError] = useState(false); // Error state
     const divRef = useRef(null);
-    const [disableChildInput, setDisableChildInput] = useState()
+    const [readOnly, setReadOnly] = useState(false)
     const [utilityAdded, setUtilityAdded] = useState()
 
     const handleInputTypeChange = (e) => {
-        setShowAppDrop(true)
+        setShowAppDrop(true);
         const newInput = e.target.value.trim(); // Trim the input
-
+    
+        // If the input is empty, reset everything
+        if (newInput.length === 0) {
+            setInput('');
+            setShowAppDrop(false)
+            setterInput(undefined)
+            utilityFunction(undefined)
+            return; // Return early to avoid further processing
+        }
+    
         // Check if there's a colon in the input
         if (newInput.includes(":")) {
             // Split the input into two parts based on the colon
             const [firstPart, secondPart] = newInput.split(":");
-
+    
             // Set the input state to the full value (first part + colon + second part)
             setInput(newInput);
-            setterInput({ id: firstPart, category: 'host', Option: firstPart })
-
+            setterInput({ id: firstPart, category: 'host', Option: firstPart });
+    
             // Call the filterData function with the second part (after the colon)
             const { filteredData, showAppDrop } = filterData(utility, secondPart, false); // set addHostRequired to false
-
+    
             // Update the filtered data and dropdown visibility based on the filtered result
             setFilteredData(filteredData);
             setShowAppDrop(showAppDrop);
-
-            setUtilityAdded(true)
-
+    
+            setUtilityAdded(true);
         } else {
             // If no colon, proceed normally
             setInput(newInput);
-            setUtilityAdded(false)
-
+            setUtilityAdded(false);
+    
             // Call the filterData function with the entire input
             const { filteredData, showAppDrop } = filterData(data, newInput, true);
-
+    
             // Update the filtered data and dropdown visibility
             setFilteredData(filteredData);
             setShowAppDrop(showAppDrop);
         }
     };
+    
 
 
 
@@ -56,27 +65,27 @@ const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, uti
             setInput(letItReset.category + " == " + letItReset.Option + " && " + value.category + " == " + value.Option)
             utilityFunction(value)
             setShowAppDrop(false)
-            setDisableChildInput(true)
+            setReadOnly(true)
         }
         else {
             setInput(value.category + " == " + value.Option || '');
             setterInput(value)
             setShowAppDrop(false)
-            setDisableChildInput(true)
+            setReadOnly(true)
         }
     };
 
     useEffect(() => {
-        if (!letItReset) {
+        if (!letItReset || Object.keys(letItReset).length <= 0) {
             setInput('');
-            setDisableChildInput(false)
+            setReadOnly(false)
         }
     }, [letItReset]);
 
     useEffect(() => {
         if (secondRequired && input.trim() === '') {
             setError(true); // Set error if required and empty
-            setterInput({})
+            setterInput(undefined)
         } else {
             setError(false); // Clear error when valid
         }
@@ -98,36 +107,49 @@ const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, uti
         };
     }, []);
 
-    const handleDisable = (disableSecond, disableChildInput) => {
-        if (disableSecond) {
-            return true
-        }
-        else {
-            if (disableChildInput) {
-                return true
-            }
-            else {
-                return false
-            }
-        }
-    }
+    const handleClearInput = () => {
+        setInput('');
+        setReadOnly(false)
+    };
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column' }} ref={divRef}>
-            <input
-                type="search"
-                onChange={handleInputTypeChange}
-                value={input || ''}
-                placeholder="Search..."
-                disabled={handleDisable(disableSecond, disableChildInput)}  // Using handleDisable function here
-                style={{
-                    border: error ? '2px solid red' : '1px solid #ccc',
-                    outline: error ? 'red' : 'none'
-                }}
-            />
+            <div style={{ position: 'relative' }}>
+                <input
+                    type="text"
+                    onChange={handleInputTypeChange}
+                    value={input || ''}
+                    placeholder="Search..."
+                    disabled={disableSecond} // Using handleDisable function here
+                    style={{
+                        border: error ? '2px solid red' : '1px solid #ccc',
+                        outline: error ? 'red' : 'none',
+                        paddingRight: '30px' // Add padding for the 'X' button
+                    }}
+                    readOnly={readOnly}
+                />
+                {/* Show 'X' button if there is input and input is not disabled */}
+                {input && !disableSecond && (
+                    <button 
+                        onClick={handleClearInput} 
+                        style={{
+                            position: 'absolute',
+                            right: '10px',
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            background: 'none',
+                            border: 'none',
+                            cursor: 'pointer',
+                            fontSize: '16px',
+                            color: 'gray'
+                        }}
+                    >
+                        X
+                    </button>
+                )}
+            </div>
             {error && <span style={{ color: 'red', fontSize: '12px' }}>This field is required.</span>}
-            {showAppdrop && <Appdrop data={filteredData} setinputfunction={handleSelectFromDropDown} name={name} letItRest={letItReset}/>}
-
+            {showAppdrop && <Appdrop data={filteredData} setinputfunction={handleSelectFromDropDown} />}
         </div>
     );
 };

@@ -79,21 +79,21 @@ const SelectorComponent = ({ options, utility }) => {
           {input1OptionObject.category && <div>Id1: {input1OptionObject.id}</div>}
         </>
       )}
-      {input2OptionObject && (
+      {input2OptionObject && input1OptionObject && (
         <>
           {input2OptionObject.Option && <div>Option2: {input2OptionObject.Option}</div>}
           {input2OptionObject.category && <div>Category2: {input2OptionObject.category}</div>}
           {input2OptionObject.category && <div>id2: {input2OptionObject.id}</div>}
         </>
       )}
-      {input1UtilityOptionObject && (
+      {input1UtilityOptionObject && input1OptionObject && (
         <>
           {input1UtilityOptionObject.Option && <div>Utility Option1: {input1UtilityOptionObject.Option}</div>}
           {input1UtilityOptionObject.category && <div>Utility Category1: {input1UtilityOptionObject.category}</div>}
           {input1UtilityOptionObject.category && <div>Utility Id1: {input1UtilityOptionObject.id}</div>}
         </>
       )}
-      {input2UtilityOptionObject && (
+      {input2UtilityOptionObject && input2OptionObject && input1OptionObject &&(
         <>
           {input2UtilityOptionObject.Option && <div>Utility Option2: {input2UtilityOptionObject.Option}</div>}
           {input2UtilityOptionObject.category && <div>Utility Category2: {input2UtilityOptionObject.category}</div>}
