@@ -154,7 +154,7 @@ const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, uti
                             color: 'gray'
                         }}
                     >
-                        X
+                        x
                     </button>
                 )}
             </div>
