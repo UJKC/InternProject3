@@ -2,7 +2,7 @@ import React from 'react';
 import { Matcher } from '../utlity/Match';
 import SelectorComponent from './SelectorComponent';
 
-const Dupli = ({ cacheData }) => {
+const Dupli = ({ cacheData, value1, value1Utility, value2, value2Utility }) => {
     console.log("Here from SDD by APP. Transforming data into json and objects");
 
     const IDS_GEOLOCATION_OPTION = cacheData.IDS_GEOLOCATION.map(country =>
@@ -39,7 +39,7 @@ const Dupli = ({ cacheData }) => {
 
     return (
         <>
-            <SelectorComponent options={options} utility={utility}/>
+            <SelectorComponent options={options} utility={utility}  value1={value1} value1Utility={value1Utility} value2={value2} value2Utility={value2Utility}/>
         </>
     );
 };
