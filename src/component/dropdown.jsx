@@ -24,6 +24,7 @@ const Appdrop = ({ data, setinputfunction }) => {
         >
             {Object.keys(data).map((key) => {
                 const items = data[key];
+                if (items.length === 0) return null;
                 const isExpanded = expandedCategory === key;
                 const visibleItems = isExpanded ? items : items.slice(0, 4);
                 
