@@ -32,22 +32,6 @@ const Appdrop = ({ data, setinputfunction }) => {
                     <div key={key} style={{ padding: '8px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                             <strong style={{ marginBottom: '4px' }}>{key}</strong>
-                            {items.length > 4 && (
-                                <button
-                                    onClick={() => toggleShowMore(key)}
-                                    style={{
-                                        padding: '4px 8px',
-                                        backgroundColor: '#e0e0e0',
-                                        border: 'none',
-                                        textAlign: 'center',
-                                        cursor: 'pointer',
-                                        fontSize: '12px',
-                                        color: 'black',
-                                    }}
-                                >
-                                    {isExpanded ? 'Show Less' : 'Show More'}
-                                </button>
-                            )}
                         </div>
                         {visibleItems.map((keyValue, index) => (
                             <button
@@ -81,16 +65,16 @@ const Appdrop = ({ data, setinputfunction }) => {
                                     display: 'block',
                                     width: '100%',
                                     padding: '8px',
-                                    backgroundColor: '#e0e0e0',
                                     border: 'none',
                                     textAlign: 'center',
-                                    cursor: 'pointer',
                                     fontSize: '12px',
-                                    color: 'black',
+                                    color: 'blue',
                                     marginTop: '4px',
+                                    textDecorationLine: 'underline',
+                                    background: 'none'
                                 }}
                             >
-                                {isExpanded ? 'Show Less' : 'Show More'}
+                                {isExpanded ? 'Show Less' : 'Show More...'}
                             </button>
                         )}
                     </div>
