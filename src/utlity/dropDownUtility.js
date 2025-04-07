@@ -28,7 +28,7 @@ export function includeMatch (inputLower, data)  {
     return matchedItems;
 };
 
-export function filterData (data, input, addHost = false, name, letItReset) {
+export function filterData (data, input, addHost = false, name, letItReset, optionName) {
     let inputClone = input.toLowerCase(); // Create inputClone before the loop
     let found = false; // Flag to track if data is found
     let filteredData = {}; // Variable to store the filtered data
@@ -71,20 +71,42 @@ export function filterData (data, input, addHost = false, name, letItReset) {
 
                 // Only add the 'host' category if addHost is true
                 if (addHost) {
-                    if (includeMatched['host']) {
-                        includeMatched['host'].push({
-                            Option: input,
-                            category: 'host',
-                            id: input,
-                        });
+                    if (optionName === 'port') {
+                        // Check if input is a number string
+                        if (!isNaN(input) && input.trim() !== '') {
+                            // Input is a valid number string
+                            if (includeMatched[optionName]) {
+                                includeMatched[optionName].push({
+                                    Option: input,
+                                    category: optionName,
+                                    id: input,
+                                });
+                            } else {
+                                includeMatched[optionName] = [{
+                                    Option: input,
+                                    category: optionName,
+                                    id: input,
+                                }];
+                            }
+                        }
                     } else {
-                        includeMatched['host'] = [{
-                            Option: input,
-                            category: 'host',
-                            id: input,
-                        }];
+                        // Handle other optionName values as per original logic
+                        if (includeMatched[optionName]) {
+                            includeMatched[optionName].push({
+                                Option: input,
+                                category: optionName,
+                                id: input,
+                            });
+                        } else {
+                            includeMatched[optionName] = [{
+                                Option: input,
+                                category: optionName,
+                                id: input,
+                            }];
+                        }
                     }
                 }
+                
             }
         }
 

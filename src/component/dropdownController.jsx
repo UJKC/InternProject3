@@ -36,7 +36,7 @@ const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, uti
             setterInput({ id: firstPart, category: 'host', Option: firstPart });
     
             // Call the filterData function with the second part (after the colon)
-            const { filteredData, showAppDrop } = filterData(utility, secondPart, false, name, letItReset); // set addHostRequired to false
+            const { filteredData, showAppDrop } = filterData(utility, secondPart, true, name, letItReset, 'port'); // set addHostRequired to false
     
             // Update the filtered data and dropdown visibility based on the filtered result
             setFilteredData(filteredData);
@@ -51,14 +51,14 @@ const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, uti
             // Check if name is 'second' and letItReset.Option matches newInput
             if (name === 'second' && letItReset.Option === newInput) {
                 // Call the filterData function with addHost = false
-                const { filteredData, showAppDrop } = filterData(data, newInput, false, name, letItReset);
+                const { filteredData, showAppDrop } = filterData(data, newInput, false, name, letItReset, 'host');
         
                 // Update the filtered data and dropdown visibility
                 setFilteredData(filteredData);
                 setShowAppDrop(showAppDrop);
             } else {
                 // Otherwise, call filterData with addHost = true
-                const { filteredData, showAppDrop } = filterData(data, newInput, true, name, letItReset);
+                const { filteredData, showAppDrop } = filterData(data, newInput, true, name, letItReset, 'host');
         
                 // Update the filtered data and dropdown visibility
                 setFilteredData(filteredData);
