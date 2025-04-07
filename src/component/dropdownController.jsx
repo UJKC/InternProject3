@@ -8,7 +8,7 @@ const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, uti
     const [input, setInput] = useState('');
     const [filteredData, setFilteredData] = useState({});
     const [showAppdrop, setShowAppDrop] = useState(false);
-    const [error, setError] = useState(false); // Error state
+    // const [error, setError] = useState(false); // Error state
     const divRef = useRef(null);
     const [readOnly, setReadOnly] = useState(false)
     const [utilityAdded, setUtilityAdded] = useState()
@@ -94,10 +94,10 @@ const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, uti
 
     useEffect(() => {
         if (secondRequired && input.trim() === '') {
-            setError(true); // Set error if required and empty
+            // setError(true); // Set error if required and empty
             setterInput(undefined)
         } else {
-            setError(false); // Clear error when valid
+            // setError(false); // Clear error when valid
         }
     }, [input, secondRequired]);
 
@@ -132,8 +132,10 @@ const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, uti
                     placeholder={name === 'first' ? 'Primary Search' : name === 'second' ? 'Secondary Search' : 'Search...'}
                     disabled={disableSecond} // Using handleDisable function here
                     style={{
-                        border: error ? '2px solid red' : '1px solid #ccc',
-                        outline: error ? 'red' : 'none',
+                        // border: error ? '2px solid red' : '1px solid #ccc',
+                        border: '1px solid #ccc',
+                        // outline: error ? 'red' : 'none',
+                        outline: 'none',
                         paddingRight: '30px' // Add padding for the 'X' button
                     }}
                     readOnly={readOnly}
@@ -158,7 +160,7 @@ const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, uti
                     </button>
                 )}
             </div>
-            {error && <span style={{ color: 'red', fontSize: '12px' }}>This field is required.</span>}
+            {/* {error && <span style={{ color: 'red', fontSize: '12px' }}>This field is required.</span>} */}
             {showAppdrop && <Appdrop data={filteredData} setinputfunction={handleSelectFromDropDown} />}
         </div>
     );
