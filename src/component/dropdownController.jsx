@@ -129,7 +129,7 @@ const App = ({ data, setterInput, disableSecond, letItReset, secondRequired, uti
                     type="text"
                     onChange={handleInputTypeChange}
                     value={input || ''}
-                    placeholder="Search..."
+                    placeholder={name === 'first' ? 'Primary Search' : name === 'second' ? 'Secondary Search' : 'Search...'}
                     disabled={disableSecond} // Using handleDisable function here
                     style={{
                         border: error ? '2px solid red' : '1px solid #ccc',
